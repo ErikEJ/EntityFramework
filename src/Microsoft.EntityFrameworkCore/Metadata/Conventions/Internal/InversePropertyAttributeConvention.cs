@@ -103,16 +103,6 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal
             if (IsAmbiguousInverse(navigationPropertyInfo, entityType, inverseNavigationsList))
             {
                 var existingInverse = targetEntityTypeBuilder.Metadata.FindNavigation(inverseNavigationPropertyInfo)?.FindInverse();
-
-                if (existingInverse != null)
-                {
-                    Debug.Assert(!existingInverse.DeclaringEntityType.IsAssignableFrom(entityType)
-                                 == IsAmbiguousInverse(
-                                     existingInverse.PropertyInfo,
-                                     existingInverse.DeclaringEntityType,
-                                     inverseNavigationsList));
-                }
-
                 if (existingInverse != null
                     && IsAmbiguousInverse(
                         existingInverse.PropertyInfo,
@@ -122,7 +112,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal
                     var fk = existingInverse.ForeignKey;
                     if (fk.GetConfigurationSource() == ConfigurationSource.DataAnnotation)
                     {
-                        fk.DeclaringEntityType.Builder.RemoveForeignKey(fk, ConfigurationSource.DataAnnotation);
+                        fk.DeclaringEntityType.Builder.RemoveForeignKey(fk, ConfigurationSource.DataAnnotation, runConventions: false);
                     }
                 }
 

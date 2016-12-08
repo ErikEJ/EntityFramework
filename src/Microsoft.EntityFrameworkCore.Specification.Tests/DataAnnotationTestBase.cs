@@ -1522,6 +1522,41 @@ namespace Microsoft.EntityFrameworkCore.Specification.Tests
         }
 
         [Fact]
+        public virtual void InversePropertyAttribute_removes_ambiguity_with_base_type_biderectional()
+        {
+            var modelBuilder = CreateModelBuilder();
+            var entity = modelBuilder.Entity<Q>().Metadata;
+
+            Assert.Equal(nameof(P.QRef), entity.FindNavigation(nameof(Q.PRef)).FindInverse().Name);
+            Assert.Equal(nameof(E.QRefDerived), entity.FindNavigation(nameof(Q.ERef)).FindInverse().Name);
+        }
+
+        public class Q
+        {
+            public int Id { get; set; }
+
+            [InverseProperty(nameof(E.QRefDerived))]
+            public virtual E ERef { get; set; }
+
+            [InverseProperty(nameof(P.QRef))]
+            public virtual P PRef { get; set; }
+        }
+
+        public class P
+        {
+            public int Id { get; set; }
+
+            [InverseProperty(nameof(Q.PRef))]
+            public virtual Q QRef { get; set; }
+        }
+
+        public class E : P
+        {
+            [InverseProperty(nameof(Q.ERef))]
+            public virtual Q QRefDerived { get; set; }
+        }
+
+        [Fact]
         public virtual void ForeignKeyAttribute_creates_two_relationships_if_applied_on_property_on_both_side()
         {
             var modelBuilder = CreateModelBuilder();
