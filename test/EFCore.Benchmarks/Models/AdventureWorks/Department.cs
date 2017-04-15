@@ -13,7 +13,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.Models.AdventureWorks
             EmployeeDepartmentHistory = new HashSet<EmployeeDepartmentHistory>();
         }
 
-        public short DepartmentID { get; set; }
+        public int DepartmentID { get; set; }
         public string GroupName { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string Name { get; set; }

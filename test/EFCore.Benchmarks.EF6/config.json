@@ -1,6 +1,6 @@
 ﻿{
   "benchmarks": {
-    "runIterations": false,
+    "runIterations": true,
     "resultDatabases": {
       "local": "Server=(localdb)\\mssqllocaldb;Database=Benchmarks;Trusted_Connection=True;"
     },

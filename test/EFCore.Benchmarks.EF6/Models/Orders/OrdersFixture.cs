@@ -18,7 +18,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EF6.Models.Orders
 
         public OrdersFixture(string databaseName, int productCount, int customerCount, int ordersPerCustomer, int linesPerOrder)
         {
-            _connectionString = $@"{BenchmarkConfig.Instance.BenchmarkDatabase}Database={databaseName};";
+            _connectionString = $@"Data Source={databaseName}.sdf;";
             _productCount = productCount;
             _customerCount = customerCount;
             _ordersPerCustomer = ordersPerCustomer;

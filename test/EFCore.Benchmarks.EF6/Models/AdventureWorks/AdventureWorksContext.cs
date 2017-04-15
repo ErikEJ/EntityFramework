@@ -12,6 +12,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EF6.Models.AdventureWorks
         public AdventureWorksContext(string connectionString)
             : base(connectionString)
         {
+            Database.SetInitializer<AdventureWorksContext>(null);
         }
 
         public virtual DbSet<Address> Address { get; set; }
