@@ -81,7 +81,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
                 : base("Perf_Query_Compilation", 0, 0, 0, 0)
             {
                 _noQueryCacheServiceProvider = new ServiceCollection()
-                    .AddEntityFrameworkSqlServer()
+                    .AddEntityFrameworkSqlCe()
                     .AddSingleton<IMemoryCache, NonCachingMemoryCache>()
                     .BuildServiceProvider();
             }

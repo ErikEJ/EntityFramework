@@ -91,7 +91,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks
         public virtual DbSet<WorkOrderRouting> WorkOrderRouting { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer(_connectionString).UseInternalServiceProvider(_serviceProvider);
+            => options.UseSqlCe(_connectionString).UseInternalServiceProvider(_serviceProvider);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             => ConfigureModel(modelBuilder);
@@ -271,7 +271,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks
                 {
                     entity.HasKey(e => e.CurrencyCode);
 
-                    entity.ToTable("Currency", "Sales");
+                    //entity.ToTable("Currency", "Sales");
 
                     entity.Property(e => e.ModifiedDate).HasDefaultValueSql("getdate()");
 
@@ -324,7 +324,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks
 
             modelBuilder.Entity<Department>(entity =>
                 {
-                    entity.ToTable("Department", "HumanResources");
+                    //entity.ToTable("Department", "HumanResources");
 
                     entity.Property(e => e.GroupName).IsRequired();
 
@@ -957,7 +957,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks
                 {
                     entity.HasKey(e => e.BusinessEntityID);
 
-                    entity.ToTable("SalesPerson", "Sales");
+                    //entity.ToTable("SalesPerson", "Sales");
 
                     entity.Property(e => e.Bonus).HasDefaultValue(0.00m);
 
@@ -1186,7 +1186,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks
                 {
                     entity.HasKey(e => e.BusinessEntityID);
 
-                    entity.ToTable("Store", "Sales");
+                    //entity.ToTable("Store", "Sales");
 
                     entity.Property(e => e.ModifiedDate).HasDefaultValueSql("getdate()");
 

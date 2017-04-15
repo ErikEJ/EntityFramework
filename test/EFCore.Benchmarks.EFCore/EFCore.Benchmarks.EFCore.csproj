@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\build\common.props" />
   <PropertyGroup>
-    <TargetFrameworks>net46;netcoreapp1.1</TargetFrameworks>
-    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netcoreapp1.1</TargetFrameworks>
+    <TargetFrameworks>net46</TargetFrameworks>
     <AssemblyName>Microsoft.EntityFrameworkCore.Benchmarks.EFCore</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.Benchmarks.EFCore</RootNamespace>
     <!-- TODO: Remove when Microsoft/vstest#428 is fixed. -->
@@ -10,7 +9,11 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EFCore.SqlServer\EFCore.SqlServer.csproj" />
+    <Content Include="AdventureWorks2014.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EFCore.Benchmarks\EFCore.Benchmarks.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -28,5 +31,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <PackageReference Include="EntityFrameworkCore.SqlServerCompact40">
+      <Version>2.0.0-preview1-13</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

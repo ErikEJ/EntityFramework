@@ -3,11 +3,11 @@
 
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Benchmarks.Models.AdventureWorks;
 using Microsoft.EntityFrameworkCore.Benchmarks.Models.AdventureWorks.TestHelpers;
 using Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.AdventureWorks;
 using Xunit;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 
 namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore
 {
@@ -59,7 +59,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore
         {
             collector.StartCollection();
 
-            var builder = new ModelBuilder(SqlServerConventionSetBuilder.Build());
+            var builder = new ModelBuilder(SqlCeConventionSetBuilder.Build());
             AdventureWorksContext.ConfigureModel(builder);
 
             var model = builder.Model;

@@ -33,14 +33,6 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Models.Orders
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
                 .UseInternalServiceProvider(_serviceProvider)
-                .UseSqlServer(
-                    _connectionString,
-                    b =>
-                        {
-                            if (_disableBatching)
-                            {
-                                b.MaxBatchSize(1);
-                            }
-                        });
+                .UseSqlCe(_connectionString);
     }
 }

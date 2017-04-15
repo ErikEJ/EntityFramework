@@ -28,7 +28,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
             using (var context = _fixture.CreateContext())
             {
                 var query = context.Products
-                    .FromSql("SELECT * FROM dbo.Products")
+                    .FromSql("SELECT * FROM Products")
                     .ApplyTracking(tracking);
 
                 using (collector.StartCollection())
@@ -61,7 +61,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
             using (var context = _fixture.CreateContext())
             {
                 var query = context.Products
-                    .FromSql("SELECT * FROM dbo.Products WHERE CurrentPrice >= @p0 AND CurrentPrice <= @p1", 10, 14)
+                    .FromSql("SELECT * FROM Products WHERE CurrentPrice >= @p0 AND CurrentPrice <= @p1", 10, 14)
                     .ApplyTracking(tracking);
 
                 using (collector.StartCollection())
@@ -94,7 +94,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
             using (var context = _fixture.CreateContext())
             {
                 var query = context.Products
-                    .FromSql("SELECT * FROM dbo.Products")
+                    .FromSql("SELECT * FROM Products")
                     .ApplyTracking(tracking)
                     .Where(p => p.CurrentPrice >= 10 && p.CurrentPrice <= 14)
                     .OrderBy(p => p.Name);
@@ -129,7 +129,7 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
             using (var context = _fixture.CreateContext())
             {
                 var query = context.Products
-                    .FromSql("EXECUTE dbo.SearchProducts @p0, @p1", 10, 14)
+                    .FromSql("SELECT * FROM Products WHERE CurrentPrice >= @p0 AND CurrentPrice <= @p1", 10, 14)
                     .ApplyTracking(tracking);
 
                 using (collector.StartCollection())
@@ -158,16 +158,6 @@ namespace Microsoft.EntityFrameworkCore.Benchmarks.EFCore.Query
                 : base("Perf_Query_RawSql", 1000, 1000, 2, 2)
             {
             }
-
-            protected override void OnDatabaseCreated(OrdersContext context)
-                => context.Database.ExecuteSqlCommand(
-                    @"CREATE PROCEDURE dbo.SearchProducts
-                        @minPrice decimal(18, 2),
-                        @maxPrice decimal(18, 2)
-                    AS
-                    BEGIN
-                        SELECT * FROM dbo.Products WHERE CurrentPrice >= @minPrice AND CurrentPrice <= @maxPrice
-                    END");
         }
     }
 }
